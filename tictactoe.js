@@ -1,24 +1,25 @@
-var playerO = {
-	symbol: "O",
-	number: 0
-}
-var playerX = {
-	symbol: "X",
-	number: 1
-}
-var players = [playerO, playerX];
-
-// Board object to keep track of cells
-var board = {
-	grid: [],
-	init: function() {
-		this.grid = [["","",""], ["","",""], ["","",""]];
+function Game(){
+	playerO: {
+		symbol: "O",
+		number: 0
 	},
-	display: function() {
-		for (var i = 0; i < 3; i++) {
-			for (var j = 0; j < 3; j++) {
-				var cell = document.getElementById(String(i) + String(j));
-				cell.textContent = this.grid[i][j];
+	playerX: {
+		symbol: "X",
+		number: 1
+	},
+	players: [playerO, playerX],
+
+	board: {
+		grid: [],
+		init: function() {
+			this.grid = [["","",""], ["","",""], ["","",""]];
+		},
+		display: function() {
+			for (var i = 0; i < 3; i++) {
+				for (var j = 0; j < 3; j++) {
+					var cell = document.getElementById(String(i) + String(j));
+					cell.textContent = this.grid[i][j];
+				}
 			}
 		}
 	}
