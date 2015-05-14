@@ -12,3 +12,9 @@ Game loop:
     -check verticals (3)
     -check diagonals (2)
     -return winning player or null is game isn't won yet
+
+Appearance
+-title of the game
+-rules
+-display scores for each player
+-display X or O on player's turn

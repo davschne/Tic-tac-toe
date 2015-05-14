@@ -1,4 +1,4 @@
-function Game(){
+function Game() {
 	this.playerO = {
 		symbol: "O",
 		number: 0
