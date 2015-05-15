@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tic-Tac-Toe</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Play Tic-Tac-Toe in the browser">
+		<link rel="stylesheet" href="stylesheet.css" />
+	</head>
+	<body>
+		<header>
+			<h1>Tic-Tac-Toe</h1>
+			<h2>a way to pass the time</h2>
+		</header>
+		<main>
+			<section>
+				<h2><strong><!-- CURRENT PLAYER --></strong>'s Turn</h2>
+				<table>
+					<tr>
+						<td id="00"></td>
+						<td id="01"></td>
+						<td id="02"></td>
+					</tr>
+					<tr>
+						<td id="10"></td>
+						<td id="11"></td>
+						<td id="12"></td>
+					</tr>
+					<tr>
+						<td id="20"></td>
+						<td id="21"></td>
+						<td id="22"></td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<p><!-- DISPLAY MESSAGES TO PLAYERS HERE --></p>
+			</section>
+			<section>
+				<h2>Score</h2>
+				<p>X : </p>
+				<p>O : </p>
+				<p>tie : </p>
+			</section>
+			<section>
+				<h2>Rules</h2>
+				<h3>
+					You don't know the rules to <em>Tic-Tac-Toe</em>? Have you been living under a rock? Look, it's simple:
+				</h3>
+				<p>
+					<strong>X</strong> and <strong>O</strong> players alternate. In each turn, the current player selects a cell from a 3x3 grid in which to place his or her mark (<strong>X</strong> or <strong>O</strong>). The selection is made with the number keys:
+				</p>
+				<table>
+					<tr>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+					</tr>
+				</table>
+				<p>
+					The game ends when one player completes three cells across, three cells down, or three cells diagonally. If the board is filled without any of these conditions being satisfied, the game is a tie.
+				</p>
+			</section>
+		</main>
+		<footer>
+			<img src="David_headshot_small.jpg" alt="Photo of David Schneider, author of this page">
+			<p>
+				This game brought to you by <a href="https://github.com/davschne">David Schneider</a>, musician, programmer, and Tic-Tac-Toe World Champion (okay, not really).
+			</p>
+		</footer>
+	</body>
+	<script src="tictactoe.js"></script>
+</html>
