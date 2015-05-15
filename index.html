@@ -14,8 +14,9 @@
 		</header>
 		<main>
 			<section>
-				<h2><strong><!-- CURRENT PLAYER --></strong>'s Turn</h2>
-				<table>
+				<p>Round : <span id="currentRound"></span></p>
+				<p><strong><span id="currentPlayer"><!-- CURRENT PLAYER --></span></strong>'s Turn</p>
+				<table id="board">
 					<tr>
 						<td id="00"></td>
 						<td id="01"></td>
@@ -34,13 +35,13 @@
 				</table>
 			</section>
 			<section>
-				<p><!-- DISPLAY MESSAGES TO PLAYERS HERE --></p>
+				<p id="messages"><!-- DISPLAY MESSAGES TO PLAYERS HERE --></p>
 			</section>
 			<section>
 				<h2>Score</h2>
-				<p>X : </p>
-				<p>O : </p>
-				<p>tie : </p>
+				<p>X : <span id="scoreX"></span></p>
+				<p>O : <span id="scoreO"></span></p>
+				<p>tie : <span id="ties"></span></p>
 			</section>
 			<section>
 				<h2>Rules</h2>
@@ -50,7 +51,7 @@
 				<p>
 					<strong>X</strong> and <strong>O</strong> players alternate. In each turn, the current player selects a cell from a 3x3 grid in which to place his or her mark (<strong>X</strong> or <strong>O</strong>). The selection is made with the number keys:
 				</p>
-				<table>
+				<table id="example">
 					<tr>
 						<td>1</td>
 						<td>2</td>
@@ -79,5 +80,5 @@
 			</p>
 		</footer>
 	</body>
-	<script src="tictactoe.js"></script>
+	<!-- // <script src="tictactoe.js"></script> -->
 </html>
