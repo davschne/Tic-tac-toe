@@ -1,13 +1,13 @@
 var game = {
-	playerO: {
-		symbol: "O",
-		number: 0
-	},
-	playerX: {
-		symbol: "X",
-		number: 1
-	},
-	players: [this.playerO, this.playerX],
+	players: [
+		{
+			symbol: "O",
+			number: 0
+		},
+		{
+			symbol: "X",
+			number: 1
+		}],
 
 	board: {
 		grid: [],
@@ -23,6 +23,32 @@ var game = {
 				}
 			}
 		}
+	},
+
+	stats: {
+		round: 1,
+		currentPlayer: "X",
+		scoreX: 0,
+		scoreO: 0,
+		ties: 0,
+		display: function(item) {
+			var key = String(item);
+			var value = String(this[item]);
+			var el = document.getElementById(key);
+			el.textContent = value;
+		},
+		displayAll: function() {
+			for (var prop in this) {
+				if (this.hasOwnProperty(prop) && typeof this[prop] !== "function") {
+					this.display(prop);
+				}
+			}
+		}
+	},
+
+	displayMessage: function(string) {
+		var el = document.getElementById("messages");
+		el.textContent = string;
 	},
 
 	checkWin: function(player) {
@@ -69,7 +95,6 @@ var game = {
  		//console.log("start turn"); // DEBUG
 		// Player selects a cell:
 		var choice = prompt(player.symbol + "'s turn. Please select a cell:\n1 2 3\n4 5 6\n7 8 9");
-		//console.log("after prompt"); // DEBUG
 		choice = Number(choice);
 		while (!choice || choice < 1 || choice > 9) {
 			choice = prompt("Invalid input. Please select a cell:\n1 2 3\n4 5 6\n7 8 9");
@@ -82,7 +107,7 @@ var game = {
 		if (!this.board.grid[row][col]) {
 			this.board.grid[row][col] = player.symbol;
 		} else {
-			alert("That cell is already occupied. Please select another.");
+			this.displayMessage("That cell is already occupied. Please select another.");
 			this.turn(player);
 		}
 
@@ -91,18 +116,19 @@ var game = {
 
 		// Check if game is won:
 		if (this.checkWin(player)) {
-			alert(player.symbol + " wins!");
+			this.displayMessage(player.symbol + " wins!");
 		} else if (this.checkTie()) {
 			// Check if game is a tie:
-			alert("The game is a tie.");
+			this.displayMessage("The game is a tie.");
 		} else {
 			// Trigger next turn:
 			this.turn(this.players[(player.number + 1) % 2]);
 		}
 	}
 };
-//console.log("running"); // DEBUG
 
 // Play the game:
+console.log(game.players);
 game.board.init();
-game.turn(game.playerX);
+game.stats.displayAll();
+game.turn(game.players[0]);

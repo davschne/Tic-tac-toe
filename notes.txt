@@ -13,10 +13,10 @@ Game loop:
     -check diagonals (2)
     -return winning player or null is game isn't won yet
 ADD:
--display data onscreen
+x-display data onscreen
 -choose X or O
 -switch who goes first each round
--display the current round
+x-display the current round
 
 -Clickable board
   -remove num key interface
