@@ -1,18 +1,19 @@
-function Game(){
-	this.playerO = {
+var game = {
+	playerO: {
 		symbol: "O",
 		number: 0
-	};
-	this.playerX = {
+	},
+	playerX: {
 		symbol: "X",
 		number: 1
-	};
-	this.players = [this.playerO, this.playerX],
+	},
+	players: [this.playerO, this.playerX],
 
-	this.board = {
+	board: {
 		grid: [],
 		init: function() {
 			this.grid = [["","",""], ["","",""], ["","",""]];
+			//console.log("initialized board"); // DEBUG
 		},
 		display: function() {
 			for (var i = 0; i < 3; i++) {
@@ -22,9 +23,9 @@ function Game(){
 				}
 			}
 		}
-	};
+	},
 
-	this.checkWin = function(player) {
+	checkWin: function(player) {
 		var symbol = player.symbol;
 		var grid = this.board.grid;
 		for (var i = 0; i < 3; i++) {
@@ -53,20 +54,22 @@ function Game(){
 			return true;
 		}
 		return false;
-	};
+	},
 
-	this.checkTie = function() {
+	checkTie: function() {
 		for (var i = 0; i < 3; i++) {
 			for (var j = 0; j < 3; j++) {
 				if (!this.board.grid[i][j]) return false;
 			}
 		}
 		return true;
-	};
+	},
 
- 	this.turn = function(player) {
+ 	turn: function(player) {
+ 		//console.log("start turn"); // DEBUG
 		// Player selects a cell:
 		var choice = prompt(player.symbol + "'s turn. Please select a cell:\n1 2 3\n4 5 6\n7 8 9");
+		//console.log("after prompt"); // DEBUG
 		choice = Number(choice);
 		while (!choice || choice < 1 || choice > 9) {
 			choice = prompt("Invalid input. Please select a cell:\n1 2 3\n4 5 6\n7 8 9");
@@ -96,10 +99,10 @@ function Game(){
 			// Trigger next turn:
 			this.turn(this.players[(player.number + 1) % 2]);
 		}
-	};
-}
+	}
+};
+//console.log("running"); // DEBUG
 
 // Play the game:
-var game = new Game();
 game.board.init();
-game.turn(game.players[0]);
+game.turn(game.playerX);
