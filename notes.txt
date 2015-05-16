@@ -12,3 +12,18 @@ Game loop:
     -check verticals (3)
     -check diagonals (2)
     -return winning player or null is game isn't won yet
+ADD:
+x-display data onscreen
+-choose X or O
+-switch who goes first each round
+x-display the current round
+-allow multiple rounds
+-keep track of round & score
+
+-Clickable board
+  -remove num key interface
+  -remove prompts; replace with onscreen messages
+
+-Play against the computer:
+  -beginning of game: choose to play against an opponent or the computer
+  -program AI

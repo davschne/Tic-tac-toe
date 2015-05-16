@@ -1,105 +1,151 @@
-function Game(){
-	this.playerO = {
-		symbol: "O",
-		number: 0
-	};
-	this.playerX = {
-		symbol: "X",
-		number: 1
-	};
-	this.players = [this.playerO, this.playerX],
-
-	this.board = {
-		grid: [],
-		init: function() {
-			this.grid = [["","",""], ["","",""], ["","",""]];
-		},
-		display: function() {
-			for (var i = 0; i < 3; i++) {
-				for (var j = 0; j < 3; j++) {
-					var cell = document.getElementById(String(i) + String(j));
-					cell.textContent = this.grid[i][j];
-				}
-			}
-		}
-	};
-
-	this.checkWin = function(player) {
-		var symbol = player.symbol;
-		var grid = this.board.grid;
-		for (var i = 0; i < 3; i++) {
-			//check horizontals
-			if (grid[i][0] === symbol &&
-					grid[i][1] === symbol &&
-					grid[i][2] === symbol) {
-				return true;
-			}
-			//check verticals
-			if (grid[0][i] === symbol &&
-					grid[1][i] === symbol &&
-					grid[2][i] === symbol) {
-				return true;
-			}
-		}
-		//check diagonals
-		if (grid[0][0] === symbol &&
-				grid[1][1] === symbol &&
-				grid[2][2] === symbol) {
-			return true;
-		}
-		if (grid[0][2] === symbol &&
-				grid[1][1] === symbol &&
-				grid[2][0] === symbol) {
-			return true;
-		}
-		return false;
-	};
-
-	this.checkTie = function() {
-		for (var i = 0; i < 3; i++) {
-			for (var j = 0; j < 3; j++) {
-				if (!this.board.grid[i][j]) return false;
-			}
-		}
-		return true;
-	};
-
- 	this.turn = function(player) {
-		// Player selects a cell:
-		var choice = prompt(player.symbol + "'s turn. Please select a cell:\n1 2 3\n4 5 6\n7 8 9");
-		choice = Number(choice);
-		while (!choice || choice < 1 || choice > 9) {
-			choice = prompt("Invalid input. Please select a cell:\n1 2 3\n4 5 6\n7 8 9");
-			choice = Number(choice);
-		}
-		var row = Math.floor((choice - 1)/ 3);
-		var col = (choice - 1) % 3;
-
-		// Update board:
-		if (!this.board.grid[row][col]) {
-			this.board.grid[row][col] = player.symbol;
-		} else {
-			alert("That cell is already occupied. Please select another.");
-			this.turn(player);
-		}
-
-		// Display board:
-		this.board.display();
-
-		// Check if game is won:
-		if (this.checkWin(player)) {
-			alert(player.symbol + " wins!");
-		} else if (this.checkTie()) {
-			// Check if game is a tie:
-			alert("The game is a tie.");
-		} else {
-			// Trigger next turn:
-			this.turn(this.players[(player.number + 1) % 2]);
-		}
-	};
+function Player(symbol) {
+	this.symbol = symbol;
 }
 
-// Play the game:
-var game = new Game();
-game.board.init();
-game.turn(game.players[0]);
+var playerX = new Player("X");
+var playerO = new Player("O");
+
+playerX.nextPlayer = playerO;
+playerO.nextPlayer = playerX;
+
+var board = {
+	grid: [],
+	init: function() {
+		this.grid = [["","",""], ["","",""], ["","",""]];
+	},
+	display: function() {
+		for (var i = 0; i < 3; i++) {
+			for (var j = 0; j < 3; j++) {
+				var cell = document.getElementById(String(i) + String(j));
+				cell.textContent = this.grid[i][j];
+			}
+		}
+	}
+}
+
+var stats = {
+	// Make a constructor for display item
+	// include value property and display method
+	round: 1,
+	currentPlayer: "X",
+	X: 0,
+	O: 0,
+	tie: 0,
+	display: function(prop) {
+		var key = String(prop);
+		var value = String(this[prop]);
+		var el = document.getElementById(key);
+		el.textContent = value;
+	},
+	displayAll: function() {
+		for (var prop in this) {
+			if (this.hasOwnProperty(prop) && typeof this[prop] !== "function") {
+				this.display(prop);
+			}
+		}
+	}
+}
+
+function displayMessage(string) {
+	var el = document.getElementById("message");
+	el.textContent = string;
+}
+
+
+// modify this to take no input but return winner
+function checkWin() {
+	var grid = board.grid;
+	var findPlayerBySymbol = function(symbol) {
+		if (symbol == playerX.symbol) return playerX;
+		else return playerO;
+	}
+
+	for (var i = 0; i < 3; i++) {
+		//check horizontals
+		var symbol = grid[i][0];
+		if (symbol &&
+			  symbol == grid[i][1] &&
+			  symbol == grid[i][2]) {
+			return findPlayerBySymbol(symbol);
+		}
+		//check verticals
+		symbol = grid[0][i];
+		if (symbol &&
+			  symbol == grid[1][i] &&
+			  symbol == grid[2][i]) {
+			return findPlayerBySymbol(symbol);
+		}
+	}
+	//check diagonals
+	symbol = grid[0][0];
+	if (symbol &&
+		  symbol == grid[1][1] &&
+		  symbol == grid[2][2]) {
+		return findPlayerBySymbol(symbol);
+	}
+	symbol = grid[0][2];
+	if (symbol &&
+		  symbol == grid[1][1] &&
+		  symbol == grid[2][0]) {
+		return findPlayerBySymbol(symbol);
+	}
+	return;
+}
+
+function checkTie() {
+	for (var i = 0; i < 3; i++) {
+		for (var j = 0; j < 3; j++) {
+			if (!board.grid[i][j]) return false;
+		}
+	}
+	return true;
+}
+
+function turn(player) {
+	// Update and display current player
+	stats.currentPlayer = player.symbol;
+	stats.display("currentPlayer");
+	// Player selects a cell:
+	var choice = Number(prompt("Please select a cell:\n1 2 3\n4 5 6\n7 8 9"));
+	while (!choice || choice < 1 || choice > 9) {
+		displayMessage("Invalid input.");
+		choice = Number(prompt("Please select a cell:\n1 2 3\n4 5 6\n7 8 9"));
+	}
+	var row = Math.floor((choice - 1)/ 3);
+	var col = (choice - 1) % 3;
+
+	// Update board:
+	if (!board.grid[row][col]) {
+		board.grid[row][col] = player.symbol;
+	} else {
+		displayMessage("That cell is already occupied. Please select another.");
+		turn(player);
+	}
+
+	// Display board:
+	board.display();
+
+	// Check if game is won:
+	if (checkWin()) {
+		displayMessage(player.symbol + " wins!");
+		stats[player.symbol]++;
+	} else if (checkTie()) {
+		// Check if game is a tie:
+		displayMessage("The game is a tie.");
+		stats.tie++;
+	} else {
+		// Trigger next turn:
+		turn(player.nextPlayer);
+	}
+}
+
+function round(startingPlayer) {
+	stats.displayAll();
+	board.init();
+	board.display();
+	turn(startingPlayer);
+	stats.round++;
+	round(startingPlayer.nextPlayer);
+}
+
+round(playerX);
