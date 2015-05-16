@@ -17,6 +17,8 @@ x-display data onscreen
 -choose X or O
 -switch who goes first each round
 x-display the current round
+-allow multiple rounds
+-keep track of round & score
 
 -Clickable board
   -remove num key interface
