@@ -24,7 +24,7 @@ var board = {
 }
 
 var stats = {
-	// Make a constructor for display item
+	// Make a constructor for display items
 	// include value property and display method
 	round: 1,
 	currentPlayer: "X",
@@ -51,8 +51,6 @@ function displayMessage(string) {
 	el.textContent = string;
 }
 
-
-// modify this to take no input but return winner
 function checkWin() {
 	var grid = board.grid;
 	var findPlayerBySymbol = function(symbol) {

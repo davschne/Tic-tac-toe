@@ -12,13 +12,9 @@ Game loop:
     -check verticals (3)
     -check diagonals (2)
     -return winning player or null is game isn't won yet
-ADD:
-x-display data onscreen
--choose X or O
--switch who goes first each round
-x-display the current round
--allow multiple rounds
--keep track of round & score
+TODO:
+-allow player to choose X or O
+-change stats object, adding a constructor for display items
 
 -Clickable board
   -remove num key interface
